@@ -5,7 +5,8 @@ import {
   Scale, 
   FileText,
   Database,
-  Sliders
+  Sliders,
+  Activity
 } from 'lucide-react';
 import { VariablesMacro } from '../types/actuarial';
 
@@ -31,9 +32,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const menuItems = [
     { id: 'dashboard', label: 'Cálculo de Nómina', icon: Calculator, badge: numEmpleados > 0 ? `${numEmpleados}` : '0' },
     { id: 'niif', label: 'Reportería NIIF & Sensibilidad', icon: FileText, badge: 'NIC 19' },
+    { id: 'mortality', label: 'Tablas Mortalidad IESS', icon: Activity, badge: 'RO 650' },
+    { id: 'methodology', label: 'Fórmulas y Base Legal', icon: Scale, badge: 'Ecuador' },
     { id: 'database', label: 'Arquitectura & PostgreSQL', icon: Database, badge: 'SQL' },
     { id: 'python', label: 'Código Python (Pandas)', icon: FileCode2, badge: 'FastAPI' },
-    { id: 'methodology', label: 'Fórmulas y Base Legal', icon: Scale, badge: 'Ecuador' },
   ];
 
   return (

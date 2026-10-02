@@ -9,12 +9,16 @@ import { DatabaseSchemaView } from './components/DatabaseSchemaView';
 import { PythonScriptView } from './components/PythonScriptView';
 import { LegalMethodology } from './components/LegalMethodology';
 import { ActuarialCharts } from './components/ActuarialCharts';
+import { MortalityTablesView } from './components/MortalityTablesView';
 import { EmployeeDetailModal } from './components/EmployeeDetailModal';
 import { UploadModal } from './components/UploadModal';
 import { MacroVariablesModal } from './components/MacroVariablesModal';
+import { CompanyConfigModal } from './components/CompanyConfigModal';
 
-import { EmpleadoInput, EmpleadoProcesado, VariablesMacro } from './types/actuarial';
+import { EmpleadoInput, EmpleadoProcesado, VariablesMacro, DatosEmpresaEstudio, DEFAULT_EMPRESA_CAJAMARCA } from './types/actuarial';
 import { DEFAULT_VARIABLES_MACRO, procesarMotorActuarial, calcularSensibilidadNIIF } from './services/actuarialEngine';
+import { generarEstudioWord } from './services/wordReportGenerator';
+import { generarEstudioCompletoPDF } from './services/cajamarcaPdfReportGenerator';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');

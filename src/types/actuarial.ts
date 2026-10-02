@@ -100,3 +100,55 @@ export interface ItemSensibilidad {
   variacion_usd: number;
   variacion_pct: number;
 }
+
+export interface DatosEmpresaEstudio {
+  nombre_empresa: string;
+  nombre_comercial: string;
+  ruc: string;
+  ciudad: string;
+  fecha_constitucion: string;
+  plazo_duracion: string;
+  objeto_social: string;
+  mision: string;
+  vision: string;
+  fecha_corte_valuacion: string; // ej. "31 de diciembre de 2023"
+  anio_evaluado: number;         // ej. 2023
+  anio_anterior: number;         // ej. 2022
+  fecha_emision_informe: string; // ej. "Quito, abril de 2024"
+  actuario_nombre: string;       // ej. "Econ. Hugo Paredes Estrella"
+  actuario_titulo: string;       // ej. "Servicios Actuariales"
+  actuario_registro_scvs: string;// ej. "Registro No. 1-014 SCVS"
+  actuario_registro_sb: string;  // ej. "Registro No. PEA-2007-005 SB"
+  tasa_interes_tecnico: number;  // 0.04 (4.0% anual)
+  inflacion: number;             // 0.022 (2.2% anual)
+  provision_anterior_jubilacion: number;
+  provision_anterior_desahucio: number;
+  pagos_realizados_jubilacion: number;
+  pagos_realizados_desahucio: number;
+}
+
+export const DEFAULT_EMPRESA_CAJAMARCA: DatosEmpresaEstudio = {
+  nombre_empresa: 'CAJAMARCA PROTECTIVE SERVICES CÍA. LTDA.',
+  nombre_comercial: 'CAJAPROTSERV',
+  ruc: '0992804561001',
+  ciudad: 'Guayaquil',
+  fecha_constitucion: '6 de mayo de 2013',
+  plazo_duracion: '50 años (hasta el 6 de mayo de 2063)',
+  objeto_social: 'Proveer de servicios complementarios de vigilancia, sistemas de alarma, servicios de custodia, servicios de guardianía de seguridad y servicios de seguridad física privada mediante un sistema de gestión de calidad.',
+  mision: 'Desarrollar a su gente, innovar en tecnología y estructurar una operación eficaz para alcanzar niveles de seguridad nunca antes vistos.',
+  vision: 'Ser la empresa de seguridad con mayor facturación en Ecuador, y hacer de la empresa su familia y su hogar.',
+  fecha_corte_valuacion: '31 de diciembre de 2023',
+  anio_evaluado: 2023,
+  anio_anterior: 2022,
+  fecha_emision_informe: 'Quito, abril de 2024',
+  actuario_nombre: 'Econ. Hugo Paredes Estrella',
+  actuario_titulo: 'Servicios Actuariales',
+  actuario_registro_scvs: 'Registro No. 1-014 SCVS',
+  actuario_registro_sb: 'Registro No. PEA-2007-005 SB',
+  tasa_interes_tecnico: 0.04,
+  inflacion: 0.022,
+  provision_anterior_jubilacion: 628717.06,
+  provision_anterior_desahucio: 402791.62,
+  pagos_realizados_jubilacion: 0.00,
+  pagos_realizados_desahucio: 89444.12
+};

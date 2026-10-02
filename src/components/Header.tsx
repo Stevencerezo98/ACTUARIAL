@@ -3,13 +3,16 @@ import {
   FileCode2, 
   Download, 
   Upload, 
-  Sliders,
-  Trash2,
-  Scale,
-  Calculator,
-  BookOpen,
-  FileSpreadsheet,
-  Menu
+  Sliders, 
+  Trash2, 
+  Scale, 
+  Calculator, 
+  BookOpen, 
+  FileSpreadsheet, 
+  Menu,
+  Building,
+  FileText,
+  FileDown
 } from 'lucide-react';
 import { exportarResultadosAExcel, descargarPlantillaOficial } from '../services/actuarialEngine';
 import { EmpleadoProcesado, ResumenMotor, VariablesMacro, ItemSensibilidad } from '../types/actuarial';
@@ -24,6 +27,9 @@ interface HeaderProps {
   setActiveTab: (tab: string) => void;
   onOpenUpload: () => void;
   onOpenVariables: () => void;
+  onOpenCompanyConfig: () => void;
+  onDownloadWord: () => void;
+  onDownloadStudyPdf: () => void;
   onClearData: () => void;
   hasData: boolean;
   sidebarOpen: boolean;
@@ -39,6 +45,9 @@ export const Header: React.FC<HeaderProps> = ({
   setActiveTab,
   onOpenUpload,
   onOpenVariables,
+  onOpenCompanyConfig,
+  onDownloadWord,
+  onDownloadStudyPdf,
   onClearData,
   hasData,
   sidebarOpen,
@@ -81,20 +90,29 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Center / Right: Bootstrap-style Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           
           <button
+            onClick={onOpenCompanyConfig}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 transition shadow-xs cursor-pointer"
+            title="Configurar datos de la empresa para la portada y el estudio"
+          >
+            <Building className="w-3.5 h-3.5 text-blue-600" />
+            <span className="hidden sm:inline">Empresa</span>
+          </button>
+
+          <button
             onClick={onOpenVariables}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 transition shadow-xs"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 transition shadow-xs cursor-pointer"
             title="Variables macroeconómicas (i, s, r, SBU)"
           >
             <Sliders className="w-3.5 h-3.5 text-blue-600" />
-            <span className="hidden sm:inline">Variables Macro</span>
+            <span className="hidden sm:inline">Variables</span>
           </button>
 
           <button
             onClick={onOpenUpload}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
           >
             <Upload className="w-3.5 h-3.5" />
             <span>Subir Archivo</span>
@@ -102,18 +120,38 @@ export const Header: React.FC<HeaderProps> = ({
 
           {hasData && (
             <>
+              {/* Descargar Estudio Word (Formato Cajamarca) */}
+              <button
+                onClick={onDownloadWord}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#1e3a8a] hover:bg-blue-900 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+                title="Generar y descargar Estudio Actuarial formal en Word (.docx) editable"
+              >
+                <FileText className="w-3.5 h-3.5 text-blue-200" />
+                <span className="hidden md:inline">Estudio Word (.docx)</span>
+              </button>
+
+              {/* Descargar Estudio PDF (Formato Cajamarca) */}
+              <button
+                onClick={onDownloadStudyPdf}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-red-600 hover:bg-red-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+                title="Generar y descargar Estudio Actuarial formal en PDF"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Estudio PDF</span>
+              </button>
+
               <button
                 onClick={() => exportarResultadosAExcel(resultados, resumen, variables, sensibilidad)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-green-600 hover:bg-green-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
-                title="Exportar a Excel (.xlsx) con 3 hojas NIIF"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-green-600 hover:bg-green-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+                title="Exportar libro de trabajo Excel (.xlsx) con 3 hojas NIIF"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Exportar Excel</span>
+                <span className="hidden sm:inline">Excel</span>
               </button>
 
               <button
                 onClick={onClearData}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-medium transition"
+                className="inline-flex items-center gap-1 px-2 py-1.5 rounded bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-medium transition cursor-pointer"
                 title="Limpiar datos de la tabla"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -124,11 +162,11 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={handleDownloadPython}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-300 text-xs font-medium transition"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-300 text-xs font-medium transition cursor-pointer"
             title="Descargar script en Python"
           >
             <FileCode2 className="w-3.5 h-3.5 text-blue-600" />
-            <span className="hidden md:inline">Script .py</span>
+            <span className="hidden lg:inline">Script .py</span>
           </button>
 
         </div>
